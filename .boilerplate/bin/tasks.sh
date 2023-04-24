@@ -1,10 +1,12 @@
 #!/bin/bash
 
+DDEV_PATH=".ddev"
 CRAFT_PATH="cms"
+SRC_PATH="src"
+DEFAULT_SITE_NAME="Dative Boilerplate"
+ADMIN_USERNAME="info@hellodative.com"
 
 ddev_setup() {
-    local DDEV_PATH=".ddev"
-    
     if ! command -v ddev &> /dev/null; then
         echo "\033[31mDDEV not found. Please install DDEV first.\033[0m";
         exit 1;
@@ -47,31 +49,34 @@ ddev_up() {
 }
 
 cms_setup() {
+    # TODO: let user know that he may need to enter sudo password
     if [ -d "$CRAFT_PATH" ]; then
         echo "\033[33mThe cms directory already exists. Skipping CMS setup...\033[0m";
     else
-        echo "Setting up CMS..."; \
+        echo "Setting up CMS...";
         ddev_up;
         if [ ! -d "$CRAFT_PATH/vendor" ]; then
             echo "Installing Composer dependencies...";
             ddev composer create -y --no-scripts craftcms/craft;
         fi;
-        echo "Copying .boilerplate/cms to cms";
-        rsync -ur .boilerplate/cms/. cms/;
-        echo "Copying cms/example.env to cms/.env";
-        cp cms/example.env cms/.env;
+        echo "Copying .boilerplate/cms to $CRAFT_PATH";
+        rsync -ur .boilerplate/cms/. $CRAFT_PATH/;
+        echo "Copying $CRAFT_PATH/example.env to $CRAFT_PATH/.env";
+        cp $CRAFT_PATH/example.env $CRAFT_PATH/.env;
         echo "Installing Craft...";
         ddev craft setup/app-id;
         ddev craft setup/security-key;
         ADMIN_PASSWORD=$(openssl rand -base64 8);
-        ddev craft install/craft --interactive=0 --email="$(ADMIN_USERNAME)" --language="en-US" --password="$ADMIN_PASSWORD" --username="admin" --site-name="$(DEFAULT_SITE_NAME)";
         SITE_URL=$(ddev describe -j | jq -r '.raw.primary_url');
+        ddev craft install/craft --interactive=0 --email="$ADMIN_USERNAME" --language="en-US" --password="$ADMIN_PASSWORD" --username="admin" --site-name="$DEFAULT_SITE_NAME" --site-url="$SITE_URL";
+        # Replace PRIMARY_SITE_URL with $DDEV_PRIMARY_URL variable in .env file
+        sed -i '' "s|PRIMARY_SITE_URL=.*|PRIMARY_SITE_URL=\"$\{DDEV_PRIMARY_URL\}\"|g" $CRAFT_PATH/.env;
         if [ ! -f "$CRAFT_PATH/plugins.txt" ]; then
             echo "\033[31mCould not find plugins.txt file in $CRAFT_PATH.\033[0m";
         else
             echo "Add Craft plugins...";
             ddev composer config allow-plugins.treeware/plant false;
-            ddev composer require --no-progress --no-scripts --no-interaction --optimize-autoloader --ignore-platform-reqs $(cat $CRAFT_PATH/plugins.txt);
+            ddev composer require --no-progress --no-scripts --no-interaction --optimize-autoloader --ignore-platform-reqs --update-with-dependencies $(cat $CRAFT_PATH/plugins.txt);
             ddev craft plugin/install --all;
         fi; \
         echo "\n*************************************************************\n";
@@ -79,12 +84,54 @@ cms_setup() {
         echo "    Site URL: $SITE_URL";
         echo "    Admin URL: $SITE_URL/admin";
         echo "    Username: $ADMIN_USERNAME";
-        echo "    Password: $ADMIN_PASSWORD";
+        echo "    Password: $ADMIN_PASSWORD\n";
+        echo "    To remove the CMS files and database, run this command:\n";
+        echo "    make cms-teardown";
         echo "\n*************************************************************\n";
     fi
+    exit 0;
+}
+
+cms_teardown() {
+    # Prompt user to confirm that he wants to delete the CMS
+    read -rp "Are you sure you want to delete the CMS directory and DB? [y/N] " response;
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        echo "Deleting CMS files and Database...";
+        cat ./.boilerplate/bin/drop.sql | ddev mysql && ddev stop && rm -rf cms;
+    else
+        echo "Aborting...";
+    fi
+    exit 0;
+}
+
+buildchain_setup() {
+    if [ -d "$SRC_PATH" ]; then
+        echo "\033[33mThe src directory already exists. Skipping Buildchain setup...\033[0m";
+    else
+        echo "Setting up Buildchain...";
+        # Make sure DDEV is running
+        ddev_up;
+        # Rsync the boilerplate/buildchain/src directory to SRC_PATH
+        echo "Copying .boilerplate/buildchain/src to $SRC_PATH";
+        rsync -ur .boilerplate/buildchain/src/. $SRC_PATH/;
+        # Rsync the boilerplate/buildchain/template.* files to project root
+        echo "Copying .boilerplate/buildchain/template.* to root";
+        cp .boilerplate/buildchain/template.* .;
+        # Remove the "template." prefix from the template.* files
+        for file in template.*; do mv "$file" "${file#template.}";done;
+        # Install NPM dependencies
+        ddev yarn;
+        echo "\n*************************************************************\n";
+        echo "    \033[32mBuildchain successfully set up!\033[0m\n";
+        echo "    To start development run this command:\n";
+        echo "    ddev yarn start";
+        echo "\n*************************************************************\n";
+    fi
+    exit 0;
 }
 
 tester() {
     echo "tester";
+    exit 0;
 }
 

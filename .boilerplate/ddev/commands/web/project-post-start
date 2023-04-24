@@ -6,8 +6,8 @@
 ## ExecRaw: true
 
 if [ -d "cms" ]; then
-  echo "Craft CMS is installed, running composer install..."
-  echo "TODO: Add your composer install command here."
+    echo "Craft CMS is installed, running composer install..."
+    echo "TODO: Add your composer install command here."
 else
-  echo "Craft CMS is not installed, skipping composer install..."
+    echo "Craft CMS is not installed, skipping composer install..."
 fi

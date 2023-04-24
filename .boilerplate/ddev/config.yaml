@@ -62,7 +62,7 @@ webimage_extra_packages:
     pngquant,
     webp,
     xdg-utils,
-    zlib1g-dev
+    zlib1g-dev,
   ]
 # Key features of ddev's config.yaml:
 
