@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
-DDEV_PATH=".ddev"
-CRAFT_PATH="cms"
-SRC_PATH="src"
-DEFAULT_SITE_NAME="Dative Boilerplate"
-ADMIN_USERNAME="info@hellodative.com"
+DDEV_PATH=${DDEV_PATH:-".ddev"}
+CRAFT_PATH=${CRAFT_PATH:-"cms"}
+SRC_PATH=${SRC_PATH:-"src"}
+DEFAULT_SITE_NAME=${DEFAULT_SITE_NAME:-"Dative Boilerplate"}
+ADMIN_USERNAME=${ADMIN_USERNAME:-"info@hellodative.com"}
 
 ddev_setup() {
     if ! command -v ddev &> /dev/null; then
@@ -124,7 +124,8 @@ buildchain_setup() {
 }
 
 tester() {
-    echo "tester!";
+    echo "tester: $DDEV_PATH";
+    echo "tester: $CRAFT_PATH";
     exit 0;
 }
 
