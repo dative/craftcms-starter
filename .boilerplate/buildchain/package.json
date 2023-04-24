@@ -1,0 +1,65 @@
+{
+  "name": "craftcms-starter",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "author": "Rodrigo Passos <rodrigo@hellodative.com> (https://rodrigopassos.com/)",
+  "keywords": [
+    "dative",
+    "ddev",
+    "craftcms",
+    "vite"
+  ],
+  "type": "module",
+  "homepage": "https://github.com/dative/craftcms-starter/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dative/craftcms-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dative/craftcms-starter/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "critical": "NODE_ENV=production CRITICAL_URL=https://lll-test.ddev.site/ vite build --config vite.critical.config.js",
+    "critical:ci": "NODE_ENV=production CRITICAL_URL=https://lll-test.dative.dev/ vite build --config vite.critical.config.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "alpinejs": "^3.12.0",
+    "lazysizes": "^5.3.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "@types/alpinejs": "^3.7.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "@vitejs/plugin-legacy": "^4.0.2",
+    "autoprefixer": "^10.4.13",
+    "copy-webpack-plugin": "^11.0.0",
+    "cssnano": "^5.1.15",
+    "eslint": "^8.38.0",
+    "postcss": "^8.4.22",
+    "postcss-combine-media-query": "^1.0.1",
+    "postcss-extract-media-query": "^3.0.0",
+    "postcss-import": "^15.1.0",
+    "prettier": "^2.8.4",
+    "rollup-plugin-critical": "^1.0.12",
+    "tailwindcss": "^3.3.1",
+    "terser": "^5.17.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.2.2",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-favicon2": "^1.1.5",
+    "vite-plugin-full-reload": "^1.0.5",
+    "vite-plugin-manifest-sri": "^0.1.0",
+    "vite-plugin-restart": "^0.3.1"
+  }
+}

@@ -13,15 +13,22 @@ database:
   version: '8.0'
 nfs_mount_enabled: false
 mutagen_enabled: false
-use_dns_when_possible: true
+use_dns_when_possible: false
 composer_version: '2'
 composer_root: ./cms
 nodejs_version: '16'
 timezone: America/New_York
+web_extra_exposed_ports:
+  - name: node-vite
+    container_port: 5173
+    http_port: 9998
+    https_port: 5173
+web_environment:
+  - CRAFT_CMD_ROOT=./cms
+  - VITE_PRIMARY_PORT=5173
 hooks:
   post-start:
-    - exec-host: 'ddev composer install'
-    - exec-host: 'ddev npm install'
+    # - exec-host: ddev project-post-start
 webimage_extra_packages:
   [
     fonts-liberation,
@@ -55,7 +62,7 @@ webimage_extra_packages:
     pngquant,
     webp,
     xdg-utils,
-    zlib1g-dev,
+    zlib1g-dev
   ]
 # Key features of ddev's config.yaml:
 

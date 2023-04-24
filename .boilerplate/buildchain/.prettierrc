@@ -1,0 +1,25 @@
+{
+  "endOfLine": "lf",
+  "singleQuote": true,
+  "tabWidth": 2,
+  "semi": false,
+  "trailingComma": "none",
+  "printWidth": 100,
+  "vueIndentScriptAndStyle": true,
+  "bracketSpacing": false,
+  "bracketSameLine": false,
+  "overrides": [
+    {
+      "files": "*.css",
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.twig",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
