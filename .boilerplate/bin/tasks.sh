@@ -40,14 +40,6 @@ ddev_setup() {
     fi
 }
 
-ddev_up() {
-    if [ ! "$(ddev describe | grep OK)" ]; then
-        ddev start;
-    else
-        printf "\033[34mDDEV is already running.\033[0m";
-    fi
-}
-
 cms_setup() {
     # TODO: let user know that he may need to enter sudo password
     if [ -d "$CRAFT_PATH" ]; then
@@ -131,7 +123,29 @@ buildchain_setup() {
 }
 
 tester() {
-    echo "tester";
+    echo "tester!";
     exit 0;
 }
 
+command_help() {
+    echo "ADD COMMAND HELP HERE";
+}
+
+ddev_up() {
+    if [ ! "$(ddev describe | grep OK)" ]; then
+        ddev start;
+    else
+        printf "\033[34mDDEV is already running.\033[0m";
+    fi
+}
+
+case "$1" in
+    "") command_help;;
+    help) command_help; exit;;
+    ddev_setup) "$@"; exit;;
+    cms_setup) "$@"; exit;;
+    buildchain_setup) "$@"; exit;;
+    command_help) "$@"; exit;;
+    tester) "$@"; exit;;
+    *) "$@"; exit 2;;
+esac
