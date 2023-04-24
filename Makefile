@@ -47,8 +47,7 @@ endif
 setup-project: ddev-setup cms-setup buildchain-setup
 
 ddev-setup:
-	@sh ${TASKS_DIR}/ddev_setup.sh \
-		$(filter-out $@,$(MAKECMDGOALS))
+	command -v ddev
 
 cms-setup:
 	@${TASKS_FN} cms_setup
