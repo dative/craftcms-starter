@@ -1,4 +1,50 @@
-# Template Instructions
+<!-- [![CraftCMS Build & Atomic Deployment](https://github.com/dative/###PROJECT_NAME###/actions/workflows/build-and-deploy.yml/badge.svg?branch=main)](https://github.com/dative/###PROJECT_NAME###/actions/workflows/build-and-deploy.yml) -->
+
+# ###PROJECT_NAME###
+
+This is the project repository code for the [###PROJECT_URL###](https://###PROJECT_URL###/) website.
+
+<!-- [Google PageSpeed Insights](https://pagespeed.web.dev/report?url=https%3A%2F%2F###PROJECT_URL###%2F&form_factor=desktop) -->
+
+[Teamwork Project](https://dative.teamwork.com/app/projects/###PROJECT_ID###)
+
+## Overview
+
+ENTER PROJECT OVERVIEW HERE
+
+## Initial Setup
+
+If you are running the project for the first time, ensure that DDEV is installed and running on your machine and that you have a fresh copy of the database and environment variables, then:
+
+```bash
+# 1. Clone the git repo
+git clone https://github.com/dative/###PROJECT_NAME###.git
+
+# 2. Change into the project directory
+cd ###PROJECT_NAME###
+
+# 3. Copy the `.env.example` file to `.env`
+cp cms/.env.example cms/.env
+
+# 4. Start DDEV
+ddev start
+
+# 5. Install dependencies
+ddev composer install && ddev yarn
+
+# (Optional) Import the database
+ddev import-db --src=PATH_TO_DB_DUMP.sql
+```
+
+Once the dependencies are installed, you can start development.
+
+## Development
+
+In the project root, you can start the frontend buildchain by running:
+
+```bash
+ddev yarn dev
+```
 
 My intent is that the `setup` command can be broken into sub tasks that can handle different the parts of the project setup:
 

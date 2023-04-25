@@ -1,12 +1,15 @@
 # -- GLOBAL Variables --
 
-DDEV_PATH=${DDEV_PATH:-"$BASE_PATH/.ddev"}
+DDEV_PATH=${DDEV_PATH:-".ddev"}
 CRAFT_PATH=${CRAFT_PATH:-"cms"}
 SRC_PATH=${SRC_PATH:-"src"}
 DEFAULT_SITE_NAME=${DEFAULT_SITE_NAME:-"Dative Boilerplate"}
 ADMIN_USERNAME=${ADMIN_USERNAME:-"info@hellodative.com"}
 PROJECT_ROOT=$PWD
+TASKS_DIR=${TASKS_DIR:-".bin"}
 SCRIPT_OUTPUT=${SCRIPT_OUTPUT:-}
+
+PROJECT_TEST_NAME="local-test"
 
 # -- Functions --
 

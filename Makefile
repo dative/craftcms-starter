@@ -37,9 +37,13 @@ ifdef ADMIN_USERNAME
 	TASK_VARS			 += ADMIN_USERNAME=${ADMIN_USERNAME}
 endif
 
-.PHONY: setup-project ddev-setup cms-setup buildchain-setup cms-teardown tester
+ifdef TASKS_DIR
+	TASK_VARS			 += TASKS_DIR=${TASKS_DIR}
+endif
 
-setup-project: ddev-setup buildchain-setup cms-setup
+.PHONY: setup-project ddev-setup cms-setup buildchain-setup ping tester run-test-install
+
+setup-project: ddev-setup buildchain-setup cms-setup post-install-clean-up
 
 ddev-setup:
 	@${TASK_VARS} sh ${TASKS_DIR}/ddev_setup.sh
@@ -52,6 +56,18 @@ buildchain-setup:
 
 tester:
 	@${TASK_VARS} sh ${TASKS_DIR}/tester.sh
+
+post-install-clean-up:
+	@${TASK_VARS} sh ${TASKS_DIR}/post_install_clean_up.sh
+	@echo "Post install clean up..."
+	@rm Makefile
+	@rm -rf ${TASKS_DIR}
+
+run-test-install:
+	@${TASK_VARS} sh ${TASKS_DIR}/run_test_install.sh
+
+delete-test-install:
+	@${TASK_VARS} sh ${TASKS_DIR}/delete_test_install.sh
 
 
 ping:

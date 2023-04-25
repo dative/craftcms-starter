@@ -1,5 +1,6 @@
 # Test tmp files
 tmp
+local-test
 
 # BUILD FILES
 node_modules
