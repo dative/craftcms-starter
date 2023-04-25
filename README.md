@@ -1,68 +1,87 @@
-# Template Instructions
+# craftcms-starter README
 
-My intent is that the `setup` command can be broken into sub tasks that can handle different the parts of the project setup:
+## Overview
 
-- DDEV:
+`craftcms-starter` is a project starter tool designed to streamline the setup process for a Craft CMS project with a modern development environment. This tool integrates a Makefile, Docker, DDEV, Craft CMS, ViteJS, and Tailwind CSS to provide a seamless setup experience for your team.
 
-  - Check if ddev is installed in the system
-  - Check if `.ddev` existis in the project root, and if it doesn't:
-    - Copy `.boilerplate/ddev` to .ddev
-    - Prompt for the `project-name`
-    - Run `ddev config --project-name=<project-name>` with the project name
-    - Run `ddev start`
+The git repository for the tool can be found at [https://github.com/dative/craftcms-starter](https://github.com/dative/craftcms-starter).
 
-- CMS:
+## Notable Features
 
-  - Check if `cms` directory exists in the project root, and if it doesn't:
-    - Copy `.boilerplate/cms` to `cms`
-    - Copy cms/example.env to cms/.env
-  - Check if DDEV is running, and if it isn't:
-    - Start DDEV
-  - Check if Craft is already installed, and if it isn't:
-    - Install composer dependencies using DDEV
-    - Install Craft using DDEV
-    - Install plugins using DDEV
+- [DDEV](https://ddev.readthedocs.io/) for local development
+- [Craft CMS 4.x](https://craftcms.com/) for content management
+- [Vite 4.x](https://vitejs.dev/) for front-end bundling & HMR
+- [Tailwind 3.x](https://tailwindcss.com) for utility-first CSS
+- [Alpine 3.x](https://alpinejs.dev/) for lightweight reactivity
+- [Makefile](https://www.gnu.org/software/make/manual/make.html) for common CLI commands
 
-- Frontend:
+## Prerequisites
 
-  - Check if `src` directory exists in the project root, and if it doesn't:
-    - Copy `.boilerplate/src` to `src`
-  - Check and copy each file in `.boilerplate/devtools` directory that doesn't exist to the project root
-  - Check if DDEV is running, and if it isn't:
-    - Start DDEV
-  - Check if `node_modules` exist at the root of the project, and if it doesn't:
-    - Install npm dependencies using DDEV
+Before using the `craftcms-starter` tool, make sure you have the following installed:
 
-ddev craft install/craft --interactive=0 --email="$(ADMIN_USERNAME)" --language="en-US" --password="$(TMP_CRAFT_PASS)" --username="admin" --site-name="$(DEFAULT_SITE_NAME)"; \
+- [Docker](https://docs.docker.com/get-docker/)
+- [DDEV](https://ddev.readthedocs.io/), minimum version v1.21.6
 
-# Windows Notes:
+## Getting Started
 
-- Need to run in WSL2
-- Need to install `make` with `sudo apt install make`
-- Need to install `jq` with `sudo apt install jq`
+## Commands
 
-# Forgot New Install Admin Password
+To set up a new project, run the following command in your terminal:
 
-ddev craft users/set-password info@hellodative.com --password=NEW_PASSWORD
+```sh
+make setup-project
+```
 
-# Reset cms-setup command
+This command executes three individual tasks sequentially: `ddev-setup`, `buildchain-setup`, and `cms-setup`. You can also run these tasks individually if needed.
 
-cat drop.sql | ddev mysql && ddev stop && rm -rf cms && make cms-setup
+### ddev-setup
 
-# Craft Config Files
+This task sets up the DDEV environment for the project. To run this task individually, use:
 
-- general.php
-- vite.php
+```sh
+make ddev-setup
+```
 
-# Front End Config Files
+### buildchain-setup
 
-- tsconfig.json
-- package.json
+This task sets up the build chain, which includes ViteJS and Tailwind CSS. To run this task individually, use:
 
-# Notes on Alpine and CSP
+```sh
+make buildchain-setup
+```
 
-https://alpinejs.dev/advanced/csp
+### cms-setup
 
-# Imager-X
+This task sets up the Craft CMS environment, including the necessary configuration files and templates. To run this task individually, use:
 
-Make sure you are using the Pro version instead of the Lite version.
+```sh
+make cms-setup
+```
+
+## Template System
+
+The `craftcms-starter` comes with an opinionated base template system that is designed to get you up and running quickly. You can use the templates as-is, or you can customize them to your project needs.
+
+To learn more about the template system, see the [Template System](TEMPLATES.md) section below.
+
+## Customization
+
+You can customize the setup process by modifying the `Makefile` variables. Uncomment and set the following variables to override the default values:
+
+- `CRAFT_PATH`: The path where the Craft CMS files will be located.
+- `DDEV_PATH`: The path where the DDEV files will be located.
+- `SRC_PATH`: The path where the source files (CSS, JS, and others) will be located.
+- `DEFAULT_SITE_NAME`: The default name for the site.
+- `ADMIN_USERNAME`: The default admin username.
+
+For example, to change the default Craft CMS path to `my-cms`, you can update the `Makefile` as follows:
+
+```make
+CRAFT_PATH := my-cms
+```
+
+After updating the variables, run the setup-project command to apply the changes.
+
+## Roadmap
+
+- Add support for Windows WSL
