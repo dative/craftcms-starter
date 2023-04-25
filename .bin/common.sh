@@ -1,6 +1,7 @@
 # -- GLOBAL Variables --
 
-DDEV_PATH=${DDEV_PATH:-".ddev"}
+BASE_PATH=${BASE_PATH:-"./"}
+DDEV_PATH=${DDEV_PATH:-"$BASE_PATH/.ddev"}
 CRAFT_PATH=${CRAFT_PATH:-"cms"}
 SRC_PATH=${SRC_PATH:-"src"}
 DEFAULT_SITE_NAME=${DEFAULT_SITE_NAME:-"Dative Boilerplate"}

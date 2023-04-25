@@ -11,6 +11,9 @@ fi
 
 # TODO: let user know that he may need to enter sudo password
 
+# Make sure to run the DDEV commands in the project directory
+cd $BASE_PATH
+
 echo "Setting up CMS...";
 ddev_up;
 if [ ! -d "$CRAFT_PATH/vendor" ]; then

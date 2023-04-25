@@ -17,13 +17,16 @@ echo "Setting up DDEV...";
 read -rp "Enter project name: " PROJECT_NAME;
 
 # Copy .boilerplate/ddev to .ddev
-echo "Copying $DIR/ddev to .ddev";
-cp -r $DIR/ddev .ddev;
+echo "Copying $DIR/ddev to $DDEV_PATH";
+cp -r $DIR/ddev $DDEV_PATH;
 
 # Rename sample.config.m1.yaml to config.m1.yaml if Apple Silicon
 if [ "$(uname -m)" = "arm64" ]; then
-    mv .ddev/sample.config.m1.yaml .ddev/config.m1.yaml
+    mv $DDEV_PATH/sample.config.m1.yaml $DDEV_PATH/config.m1.yaml
 fi
+
+# Make sure to run the DDEV commands in the project directory
+cd $BASE_PATH
 
 if error_msg=$(ddev config --project-name="$PROJECT_NAME" --project-type=craftcms --auto 2>&1 >/dev/null); then
     make_output "    \033[32mProject $PROJECT_NAME created!\033[0m\n";

@@ -6,14 +6,22 @@
 #                                                 #
 ###################################################
 
-# CRAFT_PATH 				= cms
-# DDEV_PATH 				= .ddev
-# SRC_PATH 					= src
-# DEFAULT_SITE_NAME = "Dative Boilerplate"
-# ADMIN_USERNAME 		= info@hellodative.com
+PROJECT_PATH			:= .
+DDEV_PATH					:= .ddev
+CRAFT_PATH				:= cms
+SRC_PATH					:= src
+DEFAULT_SITE_NAME	:= "Dative Boilerplate"
+ADMIN_USERNAME		:= info@hellodative.com
 
 # Source the shell script function tasks
-TASKS_DIR        := .bin
+mkfile_path 			:= $(abspath $(lastword $(MAKEFILE_LIST)))
+mkfile_dir 				:= $(dir $(mkfile_path))
+BASE_PATH					:= $(realpath $(mkfile_dir)$(PROJECT_PATH))
+TASKS_DIR        	:= "${mkfile_dir}.bin"
+
+ifdef BASE_PATH
+	TASK_VARS			 += BASE_PATH=${BASE_PATH}
+endif
 
 ifdef DDEV_PATH
 	TASK_VARS			 += DDEV_PATH=${DDEV_PATH}
@@ -50,5 +58,8 @@ buildchain-setup:
 
 tester:
 	@${TASK_VARS} sh ${TASKS_DIR}/tester.sh
+
+ping:
+	@echo "pong"
 
 .DEFAULT_GOAL := setup-project
