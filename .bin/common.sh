@@ -1,6 +1,5 @@
 # -- GLOBAL Variables --
 
-BASE_PATH=${BASE_PATH:-"./"}
 DDEV_PATH=${DDEV_PATH:-"$BASE_PATH/.ddev"}
 CRAFT_PATH=${CRAFT_PATH:-"cms"}
 SRC_PATH=${SRC_PATH:-"src"}

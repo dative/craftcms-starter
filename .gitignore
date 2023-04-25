@@ -1,3 +1,6 @@
+# Test tmp files
+tmp
+
 # BUILD FILES
 node_modules
 yarn-error.log
