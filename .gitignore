@@ -1,6 +1,3 @@
-# ENVIRONMENT CONFIG
-.env*
-
 # BUILD FILES
 node_modules
 yarn-error.log
