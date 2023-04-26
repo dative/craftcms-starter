@@ -6,6 +6,9 @@
 #                                                 #
 ###################################################
 
+# System defaults
+SHELL = /bin/sh
+
 CRAFT_PATH				:= cms
 DDEV_PATH					:= .ddev
 SRC_PATH					:= src
@@ -54,9 +57,6 @@ cms-setup:
 buildchain-setup:
 	@${TASK_VARS} sh ${TASKS_DIR}/buildchain_setup.sh
 
-tester:
-	@${TASK_VARS} sh ${TASKS_DIR}/tester.sh
-
 post-install-clean-up:
 	@${TASK_VARS} sh ${TASKS_DIR}/post_install_clean_up.sh
 	@echo "Post install clean up..."
@@ -69,6 +69,8 @@ run-test-install:
 delete-test-install:
 	@${TASK_VARS} sh ${TASKS_DIR}/delete_test_install.sh
 
+tester:
+	@${TASK_VARS} sh ${TASKS_DIR}/tester.sh
 
 ping:
 	@echo "pong"
