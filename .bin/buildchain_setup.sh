@@ -25,6 +25,9 @@ setup_buildchain() {
     echo "Copying $DIR/buildchain/src to $SRC_PATH";
     rsync -ur $DIR/buildchain/src/. $SRC_PATH/;
     
+    echo "Copying $DIR/buildchain/.github to $GITHUB_PATH";
+    rsync -ur $DIR/buildchain/.github/. $GITHUB_PATH/;
+    
     copy_config_files
     
     make_output "\033[32mBuildchain successfully set up!\033[0m\n";

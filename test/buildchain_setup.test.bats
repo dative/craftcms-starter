@@ -10,6 +10,10 @@ setup_file() {
   run sh .bin/buildchain_setup.sh
 }
 
+@test "Check if .github/workflows/build-and-deploy.yml exists" {
+  assert_exists .github/workflows/build-and-deploy.yml
+}
+
 @test "Check if src directory exists" {
   assert_exists src
 }
