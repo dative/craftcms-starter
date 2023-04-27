@@ -7,7 +7,7 @@ CRAFT_PATH=${CRAFT_PATH:-"cms"}
 SRC_PATH=${SRC_PATH:-"src"}
 DEFAULT_SITE_NAME=${DEFAULT_SITE_NAME:-"Dative Boilerplate"}
 ADMIN_USERNAME=${ADMIN_USERNAME:-"info@hellodative.com"}
-PROJECT_ROOT=$PWD
+PROJECT_ROOT=${PROJECT_ROOT:-"$PWD"}
 TASKS_DIR=${TASKS_DIR:-".bin"}
 SCRIPT_OUTPUT=${SCRIPT_OUTPUT:-}
 
@@ -66,6 +66,19 @@ check_if_args_unique () {
         raise "Error: Duplicate options found: $duplicates"
         return 1
     fi
+}
+
+check_required_environment() {
+    local required_env="$1"
+    
+    for reqvar in $required_env
+    do
+        if [ -z ${!reqvar} ]
+        then
+            raise "missing ENVIRONMENT ${reqvar}!"
+            return 1
+        fi
+    done
 }
 
 check_required_ddev_command() {

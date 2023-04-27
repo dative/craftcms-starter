@@ -69,21 +69,8 @@ setup_ddev() {
     fi
 }
 
-check_required_environment() {
-    local required_env="DDEV_PATH DDEV_PATH"
-    
-    for reqvar in $required_env
-    do
-        if [ -z ${!reqvar} ]
-        then
-            raise "missing ENVIRONMENT ${reqvar}!"
-            return 1
-        fi
-    done
-}
-
 run_main() {
-    check_required_environment || exit 1
+    check_required_environment "DDEV_PATH" || exit 1
     check_required_ddev_command || exit 1
     setup_ddev || exit 1
 }

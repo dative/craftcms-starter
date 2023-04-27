@@ -63,7 +63,7 @@ post-install-clean-up:
 	@rm Makefile
 	@rm -rf ${TASKS_DIR}
 
-run-test-install:
+stage-install:
 	@${TASK_VARS} sh ${TASKS_DIR}/run_test_install.sh
 
 delete-test-install:
