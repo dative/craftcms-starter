@@ -58,7 +58,6 @@ setup_ddev() {
         make_output "To remove and unlist this project, run this command:\n";
         make_output "ddev stop --unlist $PROJECT_NAME && rm -rf .ddev";
         print_output
-        echo "Starting DDEV...";
     else
         make_output "Can't create the project due to the following error:\n";
         make_output "$error_msg\n";

@@ -35,6 +35,10 @@ setup_buildchain() {
     if [ -d "$DDEV_PATH" ]; then
         ddev_up
         
+        PROJECT_NAME=$(ddev describe -j | jq -r '.raw.name');
+        
+        # sed -i "s/###PROJECT_NAME###/$PROJECT_NAME/gi" $DIR/README.md
+        
         # Install NPM dependencies
         ddev yarn
         
