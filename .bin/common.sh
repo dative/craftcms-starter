@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # -- GLOBAL Variables --
 
 DDEV_PATH=${DDEV_PATH:-".ddev"}
@@ -13,10 +15,63 @@ PROJECT_TEST_NAME="local-test"
 
 # -- Functions --
 
-check_ddev_command() {
+raise() {
+    echo "${1}" >&2
+}
+
+get_arg_value () {
+    if [ -z "$1" ]; then
+        raise "Error: arg_name parameter is required."
+        return 1
+    fi
+    
+    arg_name="$1"
+    args_string="$2"
+    
+    arg_value=$(echo "$args_string" | tr ' ' '\n' | grep "^$arg_name=" | sed "s/^$arg_name=//")
+    echo "$arg_value"
+}
+
+remove_from_args() {
+    arg_name="$1"
+    args_string="$2"
+    new_args_string=""
+    for arg in $args_string; do
+        case "$arg" in
+            "$arg_name="*)
+                # Do not add the argument to the new_args_string
+            ;;
+            "$arg_name")
+                # Do not add the argument to the new_args_string
+            ;;
+            *)
+                new_args_string="$new_args_string $arg"
+            ;;
+        esac
+    done
+    echo "${new_args_string# }"  # Remove leading space
+}
+
+check_if_args_unique () {
+    if [ -z "$1" ]; then
+        return 0
+    fi
+    
+    local args_list=$(echo "$1" | tr ' ' '\n' | sort)
+    # get the option names
+    local args_option_names=$(echo "$args_list" | cut -d '=' -f 1)
+    # get the duplicate names
+    local duplicates=$(echo "$args_option_names" | uniq -d)
+    if [ -n "$duplicates" ]; then
+        raise "Error: Duplicate options found: $duplicates"
+        return 1
+    fi
+}
+
+check_required_ddev_command() {
     if ! command -v ddev >/dev/null 2>&1; then
-        echo "\033[31mDDEV not found. Please install DDEV first.\033[0m";
-        exit 1;
+        raise "DDEV not found. Please install DDEV first.";
+        return 1;
     fi
 }
 
@@ -39,8 +94,15 @@ make_output() {
 
 print_output() {
     if [ ! -z "$SCRIPT_OUTPUT" ]; then
-        echo "\n*************************************************************\n";
-        echo "$SCRIPT_OUTPUT";
-        echo "\n*************************************************************\n";
+        echo "\n*******************************************************************************\n";
+        
+        # Print the output of the script, indented
+        echo "$SCRIPT_OUTPUT" | sed 's/^/    /' |
+        # Remove color codes
+        sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" |
+        # Format to 76 columns
+        fmt -w 76;
+        
+        echo "\n*******************************************************************************\n";
     fi
 }

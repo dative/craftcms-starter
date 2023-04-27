@@ -13,7 +13,7 @@ database:
   version: '8.0'
 nfs_mount_enabled: false
 mutagen_enabled: false
-use_dns_when_possible: false
+use_dns_when_possible: true
 composer_version: '2'
 composer_root: ./cms
 nodejs_version: '16'
@@ -62,7 +62,7 @@ webimage_extra_packages:
     pngquant,
     webp,
     xdg-utils,
-    zlib1g-dev
+    zlib1g-dev,
   ]
 # Key features of ddev's config.yaml:
 

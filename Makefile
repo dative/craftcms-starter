@@ -75,4 +75,7 @@ tester:
 ping:
 	@echo "pong"
 
+run-test:
+	@./test/bats/bin/bats test/test.bats
+
 .DEFAULT_GOAL := setup-project
