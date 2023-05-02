@@ -13,12 +13,12 @@ setup_craftcms() {
     
     # TODO: let user know that he may need to enter sudo password
     
-    echo "Setting up CMS...";
+    printf "Setting up CMS...\n";
     
     # ddev_up;
     
     if [ ! -d "$CRAFT_PATH/vendor" ]; then
-        echo "Installing Craft CMS using composer...";
+        printf "Installing Craft CMS using composer...\n";
         ddev composer create -y --no-scripts craftcms/craft;
     fi;
     
@@ -45,21 +45,27 @@ setup_craftcms() {
     sed -i '' "s|PRIMARY_SITE_URL=.*|PRIMARY_SITE_URL=\"$\{DDEV_PRIMARY_URL\}\"|g" $CRAFT_PATH/.env
     
     if [ ! -f "$CRAFT_PATH/plugins.txt" ]; then
-        echo "\033[31mCould not find plugins.txt file in $CRAFT_PATH.\033[0m"
+        printf "\033[31mCould not find plugins.txt file in $CRAFT_PATH.\033[0m\n"
     else
         PLUGINS_INSTALL_ARGS="--no-progress --no-scripts --no-interaction --optimize-autoloader --ignore-platform-reqs --update-with-dependencies $(cat $CRAFT_PATH/plugins.txt)"
         
-        echo "Add Craft plugins..."
+        printf "Add Craft plugins...\n"
         ddev composer config allow-plugins.treeware/plant false
         ddev composer require $PLUGINS_INSTALL_ARGS
         ddev composer update
-        # ddev craft plugin/install --all
+        
+        # echo "Installing Craft plugins...";
+        ddev craft plugin/install --all
+        
+        # echo "Due to an issue on SEOmatic, we need to install the plugins again...";
+        # https://github.com/nystudio107/craft-seomatic/issues/1312
+        ddev craft plugin/install --all
     fi
     
     make_output "    \033[32mCraft CMS successfully set up!\033[0m\n";
-    make_output "    Site URL: $SITE_URL";
-    make_output "    Admin URL: $SITE_URL/admin";
-    make_output "    Username: $ADMIN_USERNAME";
+    make_output "    Site URL: $SITE_URL\n";
+    make_output "    Admin URL: $SITE_URL/admin\n";
+    make_output "    Username: $ADMIN_USERNAME\n";
     make_output "    Password: $ADMIN_PASSWORD";
     
     print_output

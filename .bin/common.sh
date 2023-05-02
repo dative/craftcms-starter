@@ -17,7 +17,7 @@ PROJECT_TEST_NAME="local-test"
 # -- Functions --
 
 raise() {
-    echo "${1}" >&2
+    printf "${1}" >&2
 }
 
 get_arg_value () {
