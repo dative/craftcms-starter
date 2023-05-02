@@ -30,6 +30,10 @@
  *
  */
 
+@import "./components/webfonts.css";
+@import "./components/globals.css";
+@import "./components/typography.css";
+
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.
