@@ -82,6 +82,11 @@ CRAFT_PATH := my-cms
 
 After updating the variables, run the setup-project command to apply the changes.
 
+## Testing
+
+`git submodule init`
+`git submodule update --init`
+
 ## Roadmap
 
 - Add support for Windows WSL

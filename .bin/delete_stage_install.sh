@@ -12,6 +12,8 @@ delete_stage_test() {
         exit 0
     fi
     
+    # TODO: check if current directory is PROJECT_TEST_NAME
+    
     cd ${PROJECT_TEST_NAME} || ( printf "unable to cd to ${PROJECT_TEST_NAME}\n" && exit 1 )
     
     DDEV_PROJNAME=$(ddev describe -j | jq -r '.raw.name');
