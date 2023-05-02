@@ -93,7 +93,7 @@ ddev_up() {
     if [ ! "$(ddev describe | grep OK)" ]; then
         ddev start;
     else
-        echo "\033[34mDDEV is already running.\033[0m";
+        printf "\033[34mDDEV is already running.\033[0m\n";
     fi
 }
 

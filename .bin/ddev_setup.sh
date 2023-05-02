@@ -55,6 +55,8 @@ setup_ddev() {
     if error_msg=$(ddev config $DDEV_CONFIG_ARGS 2>&1 >/dev/null); then
         PROJECT_NAME=$(get_arg_value "--project-name" "$DDEV_CONFIG_ARGS")
         make_output "\033[32mProject $PROJECT_NAME created!\033[0m\n";
+        make_output "To start DDEV, run this command:\n";
+        make_output "ddev start\n\n";
         make_output "To remove and unlist this project, run this command:\n";
         make_output "ddev stop --unlist $PROJECT_NAME && rm -rf .ddev";
         print_output
