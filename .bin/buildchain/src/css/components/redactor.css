@@ -1,0 +1,49 @@
+/**
+ * Base redactor styles
+ */
+
+.rtf-left,
+.rtf-right,
+.rtf-center {
+  @apply mx-auto !w-full !h-auto;
+
+  img {
+    @apply !w-full !h-auto;
+  }
+}
+
+@media screen(sm) {
+  .rtf-left,
+  .rtf-right,
+  .rtf-center {
+    margin-bottom: 1em;
+    margin-top: 0;
+
+    &:first-child + p {
+      margin-top: 0;
+    }
+
+    &:first-child {
+    }
+  }
+
+  .rtf-left {
+    float: left;
+    margin-right: 2rem !important;
+  }
+
+  .rtf-right {
+    float: right;
+    margin-left: 2rem !important;
+  }
+
+  .rtf-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+
+    img {
+      @apply mx-auto;
+    }
+  }
+}

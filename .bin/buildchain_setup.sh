@@ -37,6 +37,7 @@ setup_buildchain() {
         
         PROJECT_NAME=$(ddev describe -j | jq -r '.raw.name');
         
+        # TODO: Update README.md, package.json, vite, etc. with project name
         # sed -i "s/###PROJECT_NAME###/$PROJECT_NAME/gi" $DIR/README.md
         
         # Install NPM dependencies

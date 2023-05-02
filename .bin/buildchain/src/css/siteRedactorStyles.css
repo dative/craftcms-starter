@@ -1,0 +1,44 @@
+/**
+* customTypography.css *
+*/
+
+/**
+* Load any required webfonts here:
+* @import url("FONT_URL_HERE");
+*/
+
+/**
+* This injects Tailwind's base styles, which is a combination of
+* Normalize.css and some additional base styles.
+*/
+
+@import "tailwindcss/base";
+
+/**
+ * This injects any component classes registered by plugins.
+ *
+ */
+@import "tailwindcss/components";
+
+/**
+ * Here we add custom component classes; stuff we want loaded
+ * *before* the utilities so that the utilities can still
+ * override them.
+ *
+ */
+
+@import "./components/webfonts.css";
+@import "./components/redactor.css";
+
+/**
+ * This injects all of Tailwind's utility classes, generated based on your
+ * config file.
+ *
+ */
+@import "tailwindcss/utilities";
+
+.redactor-box .redactor-styles {
+  @apply !prose !max-w-none;
+}
+
+@config "../../redactor.tailwind.config.cjs";

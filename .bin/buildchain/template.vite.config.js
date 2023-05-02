@@ -1,48 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {defineConfig, normalizePath} from 'vite'
-import {resolve} from 'path'
-import {ViteFaviconsPlugin} from 'vite-plugin-favicon2'
-import manifestSRI from 'vite-plugin-manifest-sri'
-import legacy from '@vitejs/plugin-legacy'
-import ViteRestart from 'vite-plugin-restart'
+import { defineConfig, normalizePath } from 'vite';
+import { resolve } from 'path';
+import { ViteFaviconsPlugin } from 'vite-plugin-favicon2';
+import manifestSRI from 'vite-plugin-manifest-sri';
+import legacy from '@vitejs/plugin-legacy';
+import ViteRestart from 'vite-plugin-restart';
 
-const nPath = (path) => normalizePath(resolve(__dirname, path))
+const nPath = (path) => normalizePath(resolve(__dirname, path));
 
-const ddevUrl = process.env.DDEV_PRIMARY_URL || 'http://localhost'
-const ddevVitePort = parseInt(process.env.VITE_PRIMARY_PORT || '5173')
+const ddevUrl = process.env.DDEV_PRIMARY_URL || 'http://localhost';
+const ddevVitePort = parseInt(process.env.VITE_PRIMARY_PORT || '5173');
 
 const viteRestartValue = (() => {
   try {
-    return ViteRestart({reload: ['./cms/templates/**/*']})
+    return ViteRestart({ reload: ['./cms/templates/**/*'] });
   } catch {
-    return ViteRestart.default({reload: ['./cms/templates/**/*']})
+    return ViteRestart.default({ reload: ['./cms/templates/**/*'] });
   }
-})()
+})();
 
-export default defineConfig(({command}) => ({
+export default defineConfig(({ command }) => ({
   base: command === 'serve' ? '' : '/dist/',
   publicDir: nPath('./src/static'),
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
-    }
+      '@': resolve(__dirname, 'src'),
+    },
   },
   build: {
     manifest: true,
     outDir: nPath('./cms/web/dist'),
     rollupOptions: {
-      input: ['./src/js/app.ts', './src/css/app.css', './src/js/utils/lazysizes-wrapper.ts'],
+      input: [
+        './src/js/app.ts',
+        './src/css/app.css',
+        './src/js/utils/lazysizes-wrapper.ts',
+      ],
       output: {
-        sourcemap: false
-      }
+        sourcemap: false,
+      },
     },
-    emptyOutDir: true
+    emptyOutDir: true,
   },
   plugins: [
     manifestSRI(),
 
     legacy({
-      targets: ['defaults', 'not IE 11']
+      targets: ['defaults', 'not IE 11'],
     }),
 
     /*
@@ -58,22 +62,22 @@ export default defineConfig(({command}) => ({
       inject: false,
       outputPath: 'favicons',
       favicons: {
-        appName: 'calmer-choice',
-        appShortName: 'Calmer Choice',
-        appDescription: 'Nonprofit organization in Barnstable, Massachusetts',
+        appName: 'project-slug',
+        appShortName: 'PROJECT NAME',
+        appDescription: 'PROJECT DESCRIPTION',
         start_url: '/',
         background: '#fff',
-        theme_color: '#ccc'
-      }
-    })
+        theme_color: '#ccc',
+      },
+    }),
   ],
   server: {
     fs: {
-      strict: false
+      strict: false,
     },
     origin: `${ddevUrl}:${ddevVitePort}`,
     host: '0.0.0.0',
     port: ddevVitePort,
-    strictPort: true
-  }
-}))
+    strictPort: true,
+  },
+}));
