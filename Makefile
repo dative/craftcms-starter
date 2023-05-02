@@ -49,28 +49,28 @@ endif
 setup-project: ddev-setup buildchain-setup cms-setup post-install-clean-up
 
 ddev-setup:
-	@${TASK_VARS} sh ${TASKS_DIR}/ddev_setup.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/ddev_setup.sh
 
 cms-setup:
-	@${TASK_VARS} sh ${TASKS_DIR}/cms_setup.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/cms_setup.sh
 
 buildchain-setup:
-	@${TASK_VARS} sh ${TASKS_DIR}/buildchain_setup.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/buildchain_setup.sh
 
 post-install-clean-up:
-	@${TASK_VARS} sh ${TASKS_DIR}/post_install_clean_up.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/post_install_clean_up.sh
 	@echo "Post install clean up..."
 	@rm Makefile
 	@rm -rf ${TASKS_DIR}
 
 stage-install:
-	@${TASK_VARS} sh ${TASKS_DIR}/run_test_install.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/run_test_install.sh
 
 delete-test-install:
-	@${TASK_VARS} sh ${TASKS_DIR}/delete_test_install.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/delete_test_install.sh
 
 tester:
-	@${TASK_VARS} sh ${TASKS_DIR}/tester.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/tester.sh
 
 ping:
 	@echo "pong"

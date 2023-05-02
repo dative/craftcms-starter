@@ -12,7 +12,7 @@ else
     make_output "    \033[32mLocal test setup completed!\033[0m\n";
 fi
 
-# Copy the Makefile and the .bin directory to PROJECT_TEST_NAME
+# # Copy the Makefile and the .bin directory to PROJECT_TEST_NAME
 cp Makefile $PROJECT_TEST_NAME
 cp -r .bin $PROJECT_TEST_NAME
 
