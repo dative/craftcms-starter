@@ -4,6 +4,7 @@ mmikkel/retcon
 nystudio107/craft-closure
 nystudio107/craft-minify:4.0.0-beta.2
 nystudio107/craft-retour
+nystudio107/craft-seomatic
 nystudio107/craft-typogrify
 nystudio107/craft-vite
 ostark/craft-relax

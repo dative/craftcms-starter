@@ -21,5 +21,13 @@
         "singleQuote": false
       }
     }
-  ]
+  ],
+  "twigMultiTags": [
+    "nav,endnav",
+    "switch,case,default,endswitch",
+    "ifchildren,endifchildren",
+    "cache,endcache"
+  ],
+  "twigMelodyPlugins": ["node_modules/prettier-plugin-twig-enhancements"],
+  "plugins": ["./node_modules/prettier-plugin-twig-melody"]
 }

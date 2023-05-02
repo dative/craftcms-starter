@@ -32,6 +32,9 @@ ddev start
 # 5. Install dependencies
 ddev composer install && ddev yarn
 
+# 6. Create the cms/storage directory
+mkdir cms/storage
+
 # (Optional) Import the database
 ddev import-db --src=PATH_TO_DB_DUMP.sql
 ```

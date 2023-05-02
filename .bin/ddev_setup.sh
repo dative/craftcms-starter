@@ -49,7 +49,7 @@ setup_ddev() {
     
     # Rename sample.config.m1.yaml to config.m1.yaml if Apple Silicon
     if [ "$(uname -m)" = "arm64" ]; then
-        mv $DDEV_PATH/sample.config.m1.yaml $DDEV_PATH/config.m1.yaml
+        cp $DDEV_PATH/sample.config.m1.yaml $DDEV_PATH/config.m1.yaml
     fi
     
     if error_msg=$(ddev config $DDEV_CONFIG_ARGS 2>&1 >/dev/null); then

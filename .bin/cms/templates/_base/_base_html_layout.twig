@@ -32,10 +32,14 @@
  ▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟
 
 #}
-{% extends "_base/_base_web_layout.twig" %}
+{# -- Base HTML layout template that all HTML requests inherit from -- #}
+{% extends craft.app.request.isAjax() and not craft.app.request.getIsPreview()
+    ? "_base/_base_ajax_layout.twig"
+    : "_base/_base_web_layout.twig"
+%}
 
 {% block htmlTag %}
-	<html class="fonts-loaded" lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+	<html class="" lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 {% endblock htmlTag %}
 
 {# -- Page content that should be included in the <head> -- #}
@@ -63,7 +67,7 @@
 	{% block bodyHtml %}{% endblock bodyHtml %}
 
 	{# -- Inline JS #}
-	{% include "_base/_body_js.twig" %}
+       {{ include("_base/_body_js.twig") }}
 
 	{# -- Any JavaScript that should be included before </body> -- #}
 	{% block bodyJs %}{% endblock bodyJs %}

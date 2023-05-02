@@ -25,8 +25,8 @@ setup_craftcms() {
     # echo "Copying $DIR/cms to $CRAFT_PATH";
     rsync -ur $DIR/cms/. $CRAFT_PATH/;
     
-    # echo "Copying $CRAFT_PATH/example.env to $CRAFT_PATH/.env";
-    cp $CRAFT_PATH/example.env $CRAFT_PATH/.env;
+    # echo "Copying $CRAFT_PATH/.env.example to $CRAFT_PATH/.env";
+    cp $CRAFT_PATH/.env.example $CRAFT_PATH/.env;
     
     # echo "Installing Craft...";
     ddev craft setup/app-id

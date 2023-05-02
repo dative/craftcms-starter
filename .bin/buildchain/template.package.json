@@ -4,12 +4,7 @@
   "description": "",
   "license": "MIT",
   "author": "Rodrigo Passos <rodrigo@hellodative.com> (https://rodrigopassos.com/)",
-  "keywords": [
-    "dative",
-    "ddev",
-    "craftcms",
-    "vite"
-  ],
+  "keywords": ["dative", "ddev", "craftcms", "vite"],
   "type": "module",
   "homepage": "https://github.com/dative/craftcms-starter/blob/main/README.md",
   "repository": {
@@ -51,6 +46,8 @@
     "postcss-extract-media-query": "^3.0.0",
     "postcss-import": "^15.1.0",
     "prettier": "^2.8.4",
+    "prettier-plugin-twig-enhancements": "^1.0.1",
+    "prettier-plugin-twig-melody": "^0.4.6",
     "rollup-plugin-critical": "^1.0.12",
     "tailwindcss": "^3.3.1",
     "terser": "^5.17.0",

@@ -1,4 +1,4 @@
-# craftcms-starter README
+# craftcms-starter
 
 ## Overview
 
