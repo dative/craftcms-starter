@@ -42,7 +42,7 @@ setup_craftcms() {
     ddev craft install/craft $CRAFT_INSTALL_ARGS
     
     # Replace PRIMARY_SITE_URL with $DDEV_PRIMARY_URL variable in .env file
-    sed -i '' "s|PRIMARY_SITE_URL=.*|PRIMARY_SITE_URL=\"$\{DDEV_PRIMARY_URL\}\"|g" $CRAFT_PATH/.env
+    sed -i 's/PRIMARY_SITE_URL=.*/PRIMARY_SITE_URL=\"$\{DDEV_PRIMARY_URL\}\"/' $CRAFT_PATH/.env
     
     if [ ! -f "$CRAFT_PATH/plugins.txt" ]; then
         printf "\033[31mCould not find plugins.txt file in $CRAFT_PATH.\033[0m\n"

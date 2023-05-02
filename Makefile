@@ -66,8 +66,8 @@ post-install-clean-up:
 stage-install:
 	@${TASK_VARS} bash ${TASKS_DIR}/stage_install.sh
 
-delete-test-install:
-	@${TASK_VARS} bash ${TASKS_DIR}/delete_test_install.sh
+delete-stage-install:
+	@${TASK_VARS} bash ${TASKS_DIR}/delete_stage_install.sh
 
 tester:
 	@${TASK_VARS} bash ${TASKS_DIR}/tester.sh
