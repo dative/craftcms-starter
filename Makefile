@@ -44,18 +44,18 @@ ifdef TASKS_DIR
 	TASK_VARS			 += TASKS_DIR=${TASKS_DIR}
 endif
 
-.PHONY: setup-project ddev-setup cms-setup buildchain-setup ping tester run-test-install
+.PHONY: ddev-setup buildchain-setup cms-setup stage-install
 
 setup-project: ddev-setup buildchain-setup cms-setup post-install-clean-up
 
-ddev-setup:
+install-ddev:
 	@${TASK_VARS} bash ${TASKS_DIR}/ddev_setup.sh
 
-cms-setup:
-	@${TASK_VARS} bash ${TASKS_DIR}/cms_setup.sh
-
-buildchain-setup:
+install-buildchain:
 	@${TASK_VARS} bash ${TASKS_DIR}/buildchain_setup.sh
+
+install-cms:
+	@${TASK_VARS} bash ${TASKS_DIR}/cms_setup.sh
 
 post-install-clean-up:
 	@${TASK_VARS} bash ${TASKS_DIR}/post_install_clean_up.sh
@@ -64,13 +64,13 @@ post-install-clean-up:
 	@rm -rf ${TASKS_DIR}
 
 stage-install:
-	@${TASK_VARS} bash ${TASKS_DIR}/stage_install.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/stage_install.sh $(filter-out $@,$(MAKECMDGOALS))
 
 delete-stage-install:
 	@${TASK_VARS} bash ${TASKS_DIR}/delete_stage_install.sh
 
 tester:
-	@${TASK_VARS} bash ${TASKS_DIR}/tester.sh
+	@${TASK_VARS} bash ${TASKS_DIR}/tester.sh $(filter-out $@,$(MAKECMDGOALS))
 
 ping:
 	@echo "pong"
@@ -78,4 +78,8 @@ ping:
 run-test:
 	@./test/bats/bin/bats test/test.bats
 
-.DEFAULT_GOAL := setup-project
+%:
+	@:
+# ref: https://stackoverflow.com/questions/6273608/how-to-pass-argument-to-makefile-from-command-line
+
+.DEFAULT_GOAL := ping

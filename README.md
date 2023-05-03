@@ -29,33 +29,33 @@ Before using the `craftcms-starter` tool, make sure you have the following insta
 To set up a new project, run the following command in your terminal:
 
 ```sh
-make setup-project
+make install
 ```
 
-This command executes three individual tasks sequentially: `ddev-setup`, `buildchain-setup`, and `cms-setup`. You can also run these tasks individually if needed.
+This command executes three individual tasks sequentially: `install-ddev`, `install-buildchain`, and `install-cms`. You can also run these tasks individually if needed.
 
-### ddev-setup
+### install-ddev
 
 This task sets up the DDEV environment for the project. To run this task individually, use:
 
 ```sh
-make ddev-setup
+make install-ddev
 ```
 
-### buildchain-setup
+### install-buildchain
 
 This task sets up the build chain, which includes ViteJS and Tailwind CSS. To run this task individually, use:
 
 ```sh
-make buildchain-setup
+make install-buildchain
 ```
 
-### cms-setup
+### install-cms
 
 This task sets up the Craft CMS environment, including the necessary configuration files and templates. To run this task individually, use:
 
 ```sh
-make cms-setup
+make install-cms
 ```
 
 ## Template System
@@ -86,6 +86,8 @@ After updating the variables, run the setup-project command to apply the changes
 
 `git submodule init`
 `git submodule update --init`
+
+https://github.com/ddev/github-action-setup-ddev
 
 ## Roadmap
 

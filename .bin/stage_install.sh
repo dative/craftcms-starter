@@ -5,33 +5,39 @@ DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "${DIR}/common.sh"
 
 stage_test() {
-    # check if PROJECT_TEST_NAME exists, if not create it
-    if [ -d "$PROJECT_TEST_NAME" ]; then
-        make_output "    \033[32mLocal test setup already exists!\033[0m\n";
-        exit 0;
-    else
-        mkdir $PROJECT_TEST_NAME
-        make_output "    \033[32mLocal test setup completed!\033[0m\n";
+    local INSTALL_PATH="$1"
+    
+    if [ -z "$INSTALL_PATH" ]; then
+        INSTALL_PATH="$STAGED_NAME"
     fi
     
-    # # Copy the Makefile and the .bin directory to PROJECT_TEST_NAME
-    cp Makefile $PROJECT_TEST_NAME
-    cp -r .bin $PROJECT_TEST_NAME
+    # check if INSTALL_PATH exists, if not create it
+    if [ -d "$INSTALL_PATH" ]; then
+        
+        raise "a directory named $INSTALL_PATH already exists!\n" "info";
+        return 0
+    fi
+    mkdir $INSTALL_PATH
     
-    make_output "    To run the install, run the following:\n";
-    make_output "    cd $PROJECT_TEST_NAME && make setup-project";
+    # # Copy the Makefile and the .bin directory to INSTALL_PATH
+    # cp Makefile $INSTALL_PATH
+    # cp -r .bin $INSTALL_PATH
+    add_to_summary "Local test setup completed!\n";
+    add_to_summary "To run the install, run the following:\n";
+    add_to_summary "cd $INSTALL_PATH && make setup-project";
     
-    print_output
+    print_summary "success"
 }
 
 run_main() {
-    stage_test || exit 1
+    stage_test "$1" || exit 1
+    exit 0;
 }
 
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
 then
-    run_main
+    run_main "$1"
     if [ $? -gt 0 ]
     then
         exit 1

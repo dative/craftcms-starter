@@ -4,6 +4,19 @@
 DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "${DIR}/common.sh"
 
-make_output "first"
+ARGS_STRING="$@"
 
-print_output
+ARGS="$ARGS_STRING"
+
+run_main() {
+    printf "Args: %s\n" "$ARGS";
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
+then
+    run_main
+    if [ $? -gt 0 ]
+    then
+        exit 1
+    fi
+fi
