@@ -12,12 +12,32 @@ PROJECT_ROOT=${PROJECT_ROOT:-"$PWD"}
 TASKS_DIR=${TASKS_DIR:-".bin"}
 SCRIPT_OUTPUT=${SCRIPT_OUTPUT:-}
 
-PROJECT_TEST_NAME="local-test"
+STAGED_NAME="staged-project"
 
 # -- Functions --
 
+print_style() {
+    
+    if [ "$2" == "info" ] ; then
+        COLOR="34m";
+        elif [ "$2" == "success" ] ; then
+        COLOR="32m";
+        elif [ "$2" == "warning" ] ; then
+        COLOR="33m";
+        elif [ "$2" == "danger" ] ; then
+        COLOR="31m";
+    else #default color
+        COLOR="0m";
+    fi
+    
+    STARTCOLOR="\e[$COLOR";
+    ENDCOLOR="\e[0m";
+    
+    printf "$STARTCOLOR%b$ENDCOLOR" "$1";
+}
+
 raise() {
-    printf "${1}" >&2
+    print_style "$1" "$2" >&2
 }
 
 get_arg_value () {
@@ -97,7 +117,7 @@ ddev_up() {
     fi
 }
 
-make_output() {
+add_to_summary() {
     # [ -z "$SCRIPT_OUTPUT" ] && echo "Empty" || echo "Not empty"
     if [ -z "$SCRIPT_OUTPUT" ]; then
         SCRIPT_OUTPUT="$1";
@@ -106,17 +126,12 @@ make_output() {
     fi
 }
 
-print_output() {
+print_summary() {
     if [ ! -z "$SCRIPT_OUTPUT" ]; then
-        printf "\n*******************************************************************************\n\n";
-        
-        # Print the output of the script, indented
-        printf "$SCRIPT_OUTPUT" | sed 's/^/    /' |
-        # Remove color codes
-        sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" |
-        # Format to 76 columns
-        fmt -w 76;
-        
-        printf "\n*******************************************************************************\n";
+        FINAL_OUTPUT=$(printf "$SCRIPT_OUTPUT" | sed 's/^/    /' | fmt -w 76);
+        BORDER=$(printf '%.0s*' {1..80});
+        print_style "\n$BORDER\n\n" "$1";
+        print_style "${FINAL_OUTPUT}" "$1";
+        print_style "\n\n$BORDER\n\n" "$1";
     fi
 }
