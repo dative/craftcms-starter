@@ -43,15 +43,17 @@ copy_github() {
 copy_root_files() {
   local INSTALL_ROOT_FILES_PATH
 
-  INSTALL_ROOT_FILES_PATH=$(realpath -m --relative-base="$(pwd)" "$BASE_PATH/$PROJECT_ROOT")
-  raise "$INSTALL_ROOT_FILES_PATH\n"
+  INSTALL_ROOT_FILES_PATH=$(realpath -m "$BASE_PATH")
+
   raise "Copying $DIR/buildchain/template.* to $INSTALL_ROOT_FILES_PATH\n"
+  if [ ! -d "$INSTALL_ROOT_FILES_PATH" ]; then
+    mkdir -p "$INSTALL_ROOT_FILES_PATH"
+  fi
   mkdir -p "$DIR/tmp"
   cp "$DIR"/buildchain/template.* "$DIR"/tmp
-  cd "$DIR/tmp" || exit 1
-  for file in template.*; do mv "$file" "${file#template.}"; done
-  cd "$PROJECT_ROOT" || exit 1
-  rsync -ur "$DIR/tmp/." "$PROJECT_ROOT/"
+  templates="$DIR/tmp/template.*"
+  for file in $templates; do mv "$file" "$DIR/tmp/${file#"$DIR/tmp/template."}"; done
+  rsync -ur "$DIR/tmp/." "$INSTALL_ROOT_FILES_PATH/"
   rm -rf "$DIR"/tmp
 }
 
