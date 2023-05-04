@@ -59,8 +59,8 @@ copy_root_files() {
 
   raise "Copying $DIR/buildchain/template.* to $INSTALL_ROOT_FILES_PATH\n"
   mkdir -p "$DIR/tmp"
-  cp "$DIR/buildchain/template.*" "$DIR/tmp"
-  cd "$DIR /tmp" || exit 1
+  cp "$DIR"/buildchain/template.* "$DIR"/tmp
+  cd "$DIR/tmp" || exit 1
   for file in template.*; do mv "$file" "${file#template.}"; done
   cd "$PROJECT_ROOT" || exit 1
   rsync -ur "$DIR/tmp/." "$FULL_INSTALL_ROOT_FILES_PATH/"
@@ -71,31 +71,24 @@ setup_buildchain() {
   copy_src
   copy_github
   copy_root_files
-  # copy_config_files
 
-  # make_output "\033[32mBuildchain successfully set up!\033[0m\n"
+  add_to_summary "Buildchain successfully set up!\n"
 
-  # if [ -d "$DDEV_PATH" ]; then
-  #   ddev_up
+  if [ -d "$DDEV_PATH" ]; then
+    cd "$BASE_PATH" || return 1
+    PROJECT_NAME=$(ddev describe -j | jq -r '.raw.name')
 
-  #   PROJECT_NAME=$(ddev describe -j | jq -r '.raw.name')
+    # TODO: Update README.md, package.json, vite, etc. with project name
+    # sed -i "s/###PROJECT_NAME###/$PROJECT_NAME/gi" $DIR/README.md
 
-  #   # TODO: Update README.md, package.json, vite, etc. with project name
-  #   # sed -i "s/###PROJECT_NAME###/$PROJECT_NAME/gi" $DIR/README.md
+    add_to_summary "Project Name: $PROJECT_NAME\n"
+    add_to_summary "To start development run this command:\n"
+    add_to_summary "ddev yarn && ddev yarn start"
+  fi
 
-  #   # Install NPM dependencies
-  #   ddev yarn
+  print_summary "success"
 
-  #   make_output "To start development run this command:\n"
-  #   make_output "ddev yarn start"
-
-  # else
-  #   make_output "DDEV project not configured. Skipping dependencies installation..."
-  # fi
-
-  # print_output
-
-  # return 0
+  return 0
 
 }
 
