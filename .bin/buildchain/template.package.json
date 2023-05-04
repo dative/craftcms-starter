@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "license": "MIT",
-  "author": "Rodrigo Passos <rodrigo@hellodative.com> (https://rodrigopassos.com/)",
   "keywords": ["dative", "ddev", "craftcms", "vite"],
   "type": "module",
   "homepage": "https://github.com/dative/craftcms-starter/blob/main/README.md",
