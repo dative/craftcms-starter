@@ -1,6 +1,6 @@
 # Test tmp files
 tmp
-local-test
+staged-project
 
 # BUILD FILES
 node_modules
