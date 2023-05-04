@@ -128,7 +128,7 @@ add_to_summary() {
 
 print_summary() {
   if [ -n "$SCRIPT_OUTPUT" ]; then
-    FINAL_OUTPUT=$(printf "$SCRIPT_OUTPUT" | sed 's/^/    /' | fmt -w 76)
+    FINAL_OUTPUT=$(printf "%b" "$SCRIPT_OUTPUT" | sed 's/^/    /' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" | fmt -w 76)
     BORDER=$(printf '%.0s*' {1..80})
     print_style "\n$BORDER\n\n" "$1"
     print_style "${FINAL_OUTPUT}" "$1"

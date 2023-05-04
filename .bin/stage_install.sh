@@ -17,7 +17,7 @@ stage_test() {
   FULL_INSTALL_PATH=$(realpath -m "$INSTALL_PATH")
 
   # check if INSTALL_PATH exists, if not create it
-  if [ -d "$INSTALL_PATH" ]; then
+  if [ -d "$FULL_INSTALL_PATH" ]; then
     raise "A directory named \"$INSTALL_PATH\" already exists!\n" "danger"
     return 1
   fi
