@@ -92,3 +92,7 @@ https://github.com/ddev/github-action-setup-ddev
 ## Roadmap
 
 - Add support for Windows WSL
+
+## Contributing
+
+https://github.com/koalaman/shellcheck

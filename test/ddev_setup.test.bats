@@ -7,24 +7,24 @@ setup() {
 }
 
 teardown() {
-    if [ -d ".ddev" ]; then
-      run ddev stop --unlist $PROJNAME && rm -rf .ddev
-    fi
+  if [ -d ".ddev" ]; then
+    run ddev stop --unlist $PROJNAME && rm -rf .ddev
+  fi
 }
 
 @test "Creates DDEV project with user input" {
-  run sh .bin/ddev_setup.sh <<< $PROJNAME
+  run bash .bin/ddev_setup.sh <<<$PROJNAME
   assert_output --partial "Project $PROJNAME created!"
 }
 
 @test "Creates DDEV project with --project-name=$PROJNAME" {
-  run sh .bin/ddev_setup.sh --project-name=$PROJNAME
+  run bash .bin/ddev_setup.sh --project-name=$PROJNAME
 
   assert_output --partial "Project $PROJNAME created!"
 }
 
 @test "Creates DDEV project with custom params" {
-  run sh .bin/ddev_setup.sh --project-name=$PROJNAME --project-type=php --php-version=8.0
+  run bash .bin/ddev_setup.sh --project-name=$PROJNAME --project-type=php --php-version=8.0
 
   assert_output --partial "Project $PROJNAME created!"
   assert_file_exists .ddev/config.yaml
@@ -36,6 +36,6 @@ teardown() {
   # mock .ddev directory
   mkdir .ddev
 
-  run sh .bin/ddev_setup.sh
+  run bash .bin/ddev_setup.sh
   assert_output --partial "The .ddev directory already exists. Skipping DDEV setup..."
 }
